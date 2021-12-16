@@ -1,0 +1,123 @@
+Task 1
+
+Q1 : Write a python program that will request data from twitter.
+ANS: 
+	pip install tweepy
+
+	import pandas as pd
+	import re
+	import nltk
+	import numpy as np
+	nltk.download('wordnet')
+	nltk.download('stopwords')
+	from nltk.corpus import stopwords
+	from nltk.stem import PorterStemmer
+	from nltk.stem import WordNetLemmatizer
+	from sklearn.ensemble import RandomForestClassifier
+	from sklearn.metrics import accuracy_score
+	from sklearn.feature_extraction.text import TfidfVectorizer
+
+	import tweepy as tp
+
+	api_key = "8ep5ZNC35S1oA86MIBr3zTG9t"
+	api_secret = "7R8sQuMTBE0PZrHbwh2LltED2DKG11e7dnNgUsAlDAkX3qdXGN"
+
+	auth = tp.OAuthHandler(api_key, api_secret)
+	api = tp.API(auth, wait_on_rate_limit = True)
+
+	search_query = "#SpiderManNoWayHome -filter:retweets"
+
+	tweets = tp.Cursor(api.search_tweets, q=search_query, lang="en", since="2021-12-10").items(50)
+
+	tweets_copy = []
+		for tweet in tweets:
+    		tweets_copy.append(tweet)
+    
+	print("Total Tweets fetched:", len(tweets_copy))
+
+Unexpected parameter: since
+---------------------------------------------------------------------------
+Forbidden                                 Traceback (most recent call last)
+<ipython-input-46-3c806eec0bc5> in <module>
+      1 tweets_copy = []
+----> 2 for tweet in tweets:
+      3     tweets_copy.append(tweet)
+      4 
+      5 print("Total Tweets fetched:", len(tweets_copy))
+
+~\anaconda3\lib\site-packages\tweepy\cursor.py in __next__(self)
+     84 
+     85     def __next__(self):
+---> 86         return self.next()
+     87 
+     88     def next(self):
+
+~\anaconda3\lib\site-packages\tweepy\cursor.py in next(self)
+    284         if self.current_page is None or self.page_index == len(self.current_page) - 1:
+    285             # Reached end of current page, get the next page...
+--> 286             self.current_page = next(self.page_iterator)
+    287             while len(self.current_page) == 0:
+    288                 self.current_page = next(self.page_iterator)
+
+~\anaconda3\lib\site-packages\tweepy\cursor.py in __next__(self)
+     84 
+     85     def __next__(self):
+---> 86         return self.next()
+     87 
+     88     def next(self):
+
+~\anaconda3\lib\site-packages\tweepy\cursor.py in next(self)
+    165 
+    166         if self.index >= len(self.results) - 1:
+--> 167             data = self.method(max_id=self.max_id, parser=RawParser(), *self.args, **self.kwargs)
+    168 
+    169             model = ModelParser().parse(
+
+~\anaconda3\lib\site-packages\tweepy\api.py in wrapper(*args, **kwargs)
+     31         @functools.wraps(method)
+     32         def wrapper(*args, **kwargs):
+---> 33             return method(*args, **kwargs)
+     34         wrapper.pagination_mode = mode
+     35         return wrapper
+
+~\anaconda3\lib\site-packages\tweepy\api.py in wrapper(*args, **kwargs)
+     44             kwargs['payload_list'] = payload_list
+     45             kwargs['payload_type'] = payload_type
+---> 46             return method(*args, **kwargs)
+     47         wrapper.payload_list = payload_list
+     48         wrapper.payload_type = payload_type
+
+~\anaconda3\lib\site-packages\tweepy\api.py in search_tweets(self, q, **kwargs)
+   1266         https://developer.twitter.com/en/docs/twitter-api/v1/tweets/search/api-reference/get-search-tweets
+   1267         """
+-> 1268         return self.request(
+   1269             'GET', 'search/tweets', endpoint_parameters=(
+   1270                 'q', 'geocode', 'lang', 'locale', 'result_type', 'count',
+
+~\anaconda3\lib\site-packages\tweepy\api.py in request(self, method, endpoint, endpoint_parameters, params, headers, json_payload, parser, payload_list, payload_type, post_data, files, require_auth, return_cursors, upload_api, use_cache, **kwargs)
+    257                 raise Unauthorized(resp)
+    258             if resp.status_code == 403:
+--> 259                 raise Forbidden(resp)
+    260             if resp.status_code == 404:
+    261                 raise NotFound(resp)
+
+Forbidden: 403 Forbidden
+453 - You currently have Essential access which includes access to Twitter API v2 endpoints only. If you need access to this endpoint, you’ll need to apply for Elevated access via the Developer Portal. You can learn more here: https://developer.twitter.com/en/docs/twitter-api/getting-started/about-twitter-api#v2-access-leve
+
+
+Q2: : What is the use of the data that you are collecting?
+ANS : To do the sentiment analysis on the movie and to understand public reviews and ratings.
+
+Q3  : What kind of analysis would you like to run on this data?
+ANS : Logistic regression, Randomforest, Long-short term memory.
+
+Q4  : What are the libraries that you are going to need in order run the said analysis?
+ANS : ---> Pandas
+	--> Numpy
+	--> seaborn library for the presentation of data collected from the dataset
+	--> library of wordcloud which provides the designing of the image
+	--> NLTK ( Natural Language Tool Kit) for 'english'.
+	--> SK learn
+
+Q5  : Create a .txt file with all of these 
+Not sure, just a try(jupyter nbconvert --to Twitter API.txt). but didn't work.
