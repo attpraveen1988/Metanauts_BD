@@ -1,0 +1,12 @@
+package com.test.scala
+
+object WordCounter {
+  def main(args: Array[String]): Unit = {
+    scala.io.Source.fromFile("E:\\BD Training\\Scala\\shakespeare.txt")
+      .getLines
+      .flatMap(_.split("\\W+"))
+      .foldLeft(Map.empty[String, Int]) {
+        (count, word) => count + (word -> (count.getOrElse(word, 0) + 1))
+      }
+  }
+}
