@@ -1,0 +1,52 @@
+Question 3: Given two non-negative integers num1 and num2 represented as strings, return the product of num1 and num2, also represented as a string.
+
+
+
+class Solution:
+    def multiply(self, num1, num2):
+        num1_num = 0
+        for each in num1:
+            asc = ord(each)
+            num = asc - 48
+            num1_num = num1_num*10+num
+        num2_num = 0
+        for each in num2:
+            asc = ord(each)
+            num = asc - 48
+            num2_num = num2_num*10+num
+        mul = num1_num * num2_num
+        if mul == 0:
+            return '0'
+        strlist = []
+        while mul != 0:
+            digit = mul%10
+            strlist.append(digit)
+            mul = (mul- digit)//10
+        result = ''
+        for each in strlist:
+            newstr = chr(each+48)
+            result = newstr + result
+        return result
+
+
+
+
+Question 14:- Given an integer array nums, return all the triplets [nums[i], nums[j], nums[k]] such that i != j, i != k, and j != k, and nums[i] + nums[j] + nums[k] == 0.
+
+
+Solution
+
+
+def threeSum(self, array: List[int]) -> List[List[int]]:
+    if len(array) < 3:
+        return []
+    if (all(num == 0 for num in array)):
+        return [[0, 0, 0]]
+    size = len(array) 
+    found = {}
+	for index, value in enumerate(array):
+        left = index + 1
+        right = size - 1
+        while left < right:
+            total = value + array[left] + array[right]
+            
